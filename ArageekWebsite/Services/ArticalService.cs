@@ -6,8 +6,13 @@ namespace ArageekWebsite.Services
 {
     public class ArticalService : IArtical
     {
-        ApplicationDbContext dbContext = new ApplicationDbContext();
-        public void Add(Artical entity)
+        private readonly ApplicationDbContext dbContext;
+
+        public ArticalService(ApplicationDbContext _dbContext)
+        {
+            dbContext = _dbContext;
+        }
+        public void Add(Artical entity, int UserID)
         {
             if (!IsExist(entity))
             {
@@ -40,6 +45,11 @@ namespace ArageekWebsite.Services
             return dbContext.articals.ToList();
         }
 
+        public List<Artical> GetByAutherId(int AutherID)
+        {
+            return dbContext.articals.Where(x => x.AutherId == AutherID).ToList();
+        }
+
         public bool IsExist(Artical entity)
         {
             return dbContext.articals.Any(x => x.Name == entity.Name);
@@ -50,7 +60,7 @@ namespace ArageekWebsite.Services
             return dbContext.articals.Any(x => x.Id == Id);   
         }
 
-        public void Update(Artical entity)
+        public void Update(Artical entity, int UserID)
         {
             if (IsExist(entity))
             {

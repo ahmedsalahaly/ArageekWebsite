@@ -5,7 +5,7 @@ namespace ArageekWebsite.Models
 {
     public class Artical : Audit
     {
-        public string ArticalName { get; set; }
+        public string ArticalName { get; set; }//Dublicated
         public string Body { get; set; }
         public bool IsDisplay { get; set; }
         public int AutherId { get; set; }

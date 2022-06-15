@@ -1,17 +1,24 @@
 ﻿using ArageekWebsite.Data;
 using ArageekWebsite.Models;
 using ArageekWebsite.Repository;
+using Microsoft.AspNetCore.Identity;
 
 namespace ArageekWebsite.Services
 {
     public class AutherService : IAuther
     {
-        ApplicationDbContext dbContext = new ApplicationDbContext();
-        public void Add(Auther entity)
+        private readonly ApplicationDbContext dbContext;
+
+        public AutherService(ApplicationDbContext _dbContext)
+        {
+            dbContext = _dbContext;
+        }
+        public void Add(Auther entity, int UserID)
         {
             if (!IsExist(entity))
             {
                 entity.CreatedDate = DateTime.Now;
+                entity.CreatedBy = UserID;
                 dbContext.authers.Add(entity);
                 dbContext.SaveChanges();
             }
@@ -50,12 +57,14 @@ namespace ArageekWebsite.Services
             return dbContext.authers.Any(x => x.Id == Id);
         }
 
-        public void Update(Auther entity)
+        public void Update(Auther entity, int UserID)
         {
             if (IsExist(entity))
             {
                 Auther oldAther = Get(entity.Id);
                 oldAther.Name = entity.Name;
+                oldAther.LastModifiedBy = UserID;
+                oldAther.LastModifiedDate = DateTime.Now;
                 dbContext.authers.Update(oldAther);
                 dbContext.SaveChanges();
             }

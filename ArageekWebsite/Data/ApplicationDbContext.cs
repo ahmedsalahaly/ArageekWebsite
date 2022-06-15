@@ -13,7 +13,6 @@ namespace ArageekWebsite.Data
         public DbSet<Artical> articals { get; set; }
         public DbSet<Auther>  authers { get; set; }
         public DbSet<Category> categories { get; set; }
-        public DbSet<User> users { get; set; }
-        public DbSet<UserRole> userRoles { get; set; }
+       
     }
 }

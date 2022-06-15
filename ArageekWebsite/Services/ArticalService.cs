@@ -12,7 +12,7 @@ namespace ArageekWebsite.Services
         {
             dbContext = _dbContext;
         }
-        public void Add(Artical entity, int UserID)
+        public void Add(Artical entity, string UserID)
         {
             if (!IsExist(entity))
             {
@@ -60,7 +60,7 @@ namespace ArageekWebsite.Services
             return dbContext.articals.Any(x => x.Id == Id);   
         }
 
-        public void Update(Artical entity, int UserID)
+        public void Update(Artical entity, string UserID)
         {
             if (IsExist(entity))
             {
